@@ -11,19 +11,19 @@ A [Docker](http://docker.com) file to build images for many platforms (linux/amd
 
 ## Details
 
-- [GitHub](https://github.com/DeftWork/samba)
+- [GitHub](https://github.com/pengshp/samba)
 - [Deft.Work my personal blog](http://deft.work/Samba)
 
 | Docker Hub | Docker Pulls | Docker Stars | Size/Layers |
 | --- | --- | --- | --- |
-| [samba](https://hub.docker.com/r/elswork/samba "elswork/samba on Docker Hub") | [![](https://img.shields.io/docker/pulls/elswork/samba.svg)](https://hub.docker.com/r/elswork/samba "elswork/samba on Docker Hub") | [![](https://img.shields.io/docker/stars/elswork/samba.svg)](https://hub.docker.com/r/elswork/samba "elswork/samba on Docker Hub") | [![](https://images.microbadger.com/badges/image/elswork/samba.svg)](https://microbadger.com/images/elswork/samba "elswork/samba on microbadger.com") |
+| [samba](https://hub.docker.com/r/pengshp/samba "elswork/samba on Docker Hub") | [![](https://img.shields.io/docker/pulls/pengshp/samba.svg)](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://img.shields.io/docker/stars/elswork/samba.svg)](https://hub.docker.com/r/elswork/samba "elswork/samba on Docker Hub") | [![](https://images.microbadger.com/badges/image/elswork/samba.svg)](https://microbadger.com/images/elswork/samba "elswork/samba on microbadger.com") |
 
 ## Build Instructions
 
 Build for amd64, armv7l, aarch64 architecture (thanks to its [Multi-Arch](https://blog.docker.com/2017/11/multi-arch-all-the-things/) base image)
 
 ``` sh
-docker build -t elswork/samba .
+docker build -t pengshp/samba .
 ```
 
 ## Usage
@@ -58,9 +58,9 @@ Start a samba fileshare.
 ``` sh
 docker run -d -p 445:445 \
   -- hostname any-host-name \ # Optional
-  -e TZ=Europe/Madrid \ # Optional
-  -v /any/path:/share/data \ # Replace /any/path with some path in your system owned by a real user from your host filesystem
-  elswork/samba \
+  -e TZ=Asia/Shanghai \ # Optional
+  -v /any/path:/share \ # Replace /any/path with some path in your system owned by a real user from your host filesystem
+  pengshp/samba \
   -u "1000:1000:alice:alice:put-any-password-here" \ # At least the first user must match (password can be different) with a real user from your host filesystem
   -u "1001:1001:bob:bob:secret" \
   -u "1002:1002:guest:guest:guest" \
@@ -73,16 +73,16 @@ docker run -d -p 445:445 \
 This is my real usage command:
 
 ``` sh
-docker run -d -p 445:445 -e TZ=Europe/Madrid \
-    -v /home/pirate/docker/makefile:/share/folder elswork/samba \
+docker run -d -p 445:445 -e TZ=Asia/Shanghai \
+    -v /home/pirate/docker/makefile:/share pengshp/samba \
     -u "1000:1000:pirate:pirate:put-any-password-here" \
     -s "SmbShare:/share/folder:rw:pirate"
 ```
 or this if the user that owns the path to be shared match with the user that raise up the container:
 
 ``` sh
-docker run -d -p 445:445 --hostname $HOSTNAME -e TZ=Europe/Madrid \
-    -v /home/pirate/docker/makefile:/share/folder elswork/samba \
+docker run -d -p 445:445 --hostname $HOSTNAME -e TZ=Asia/Shanghai \
+    -v /home/pirate/docker/makefile:/share pengshp/samba \
     -u "$(id -u):$(id -g):$(id -un):$(id -gn):put-any-password-here" \
     -s "SmbShare:/share/folder:rw:$(id -un)"
 ```
@@ -90,4 +90,4 @@ docker run -d -p 445:445 --hostname $HOSTNAME -e TZ=Europe/Madrid \
 On Windows point your filebrowser to `\\host-ip\` to preview site.
 
 ---
-**[Sponsor me!](https://github.com/sponsors/elswork) Together we will be unstoppable.**
+**[Sponsor me!](https://github.com/sponsors/pengshp) Together we will be unstoppable.**

@@ -1,20 +1,18 @@
-version: '3.4'
+version: '3.8'
 
 services:
   samba:
-    image: elswork/samba
+    image: pengshp/samba
+    container_name: samba4
+    command: '-u "1000:1000:pirate:pirate:pw" -s "SmbShare:/share:rw:pirate"'
+    # command: '-u "uid:guid:username:groupname:put-any-password-here" -s "SmbShare:/share:rw:username"'
     environment:
-      TZ: 'Europe/Madrid'
-    networks:
-      - default
+      TZ: 'Asia/Shanghai'
     ports:
-      - "445:445"
-    restart: unless-stopped
+      - "445:445/tcp"
     volumes:
-      - /home/pirate/docker/makefile:/share/folder
-      #- /path/to/be/shared:/share/folder
-    command: '-u "1000:1000:pirate:pirate:put-any-password-here" -s "SmbShare:/share/folder:rw:pirate"'
-    # command: '-u "uid:guid:username:groupname:put-any-password-here" -s "SmbShare:/share/folder:rw:username"'
-
-# networks:
-  # default:
+    - ${pwd}/data/:/share
+    #- /path/to/be/shared:/share
+    restart: on-failure
+    
+    
