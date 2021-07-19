@@ -17,7 +17,7 @@ LABEL mantainer="pengshp <pengshp@gmail.com>" \
 
 RUN set -xe \
     && apk update \
-    && apk add --no-cache samba-common-tools samba tzdata
+    && apk add --no-cache bash samba-common-tools samba tzdata
 
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod u+x /entrypoint.sh

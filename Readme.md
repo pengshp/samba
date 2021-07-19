@@ -16,7 +16,7 @@ A [Docker](http://docker.com) file to build images for many platforms (linux/amd
 
 | Docker Hub | Docker Pulls | Docker Stars | Size/Layers |
 | --- | --- | --- | --- |
-| [samba](https://hub.docker.com/r/pengshp/samba "elswork/samba on Docker Hub") | [![](https://img.shields.io/docker/pulls/pengshp/samba.svg)](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://img.shields.io/docker/stars/elswork/samba.svg)](https://hub.docker.com/r/elswork/samba "elswork/samba on Docker Hub") | [![](https://images.microbadger.com/badges/image/elswork/samba.svg)](https://microbadger.com/images/elswork/samba "elswork/samba on microbadger.com") |
+| [samba](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://img.shields.io/docker/pulls/pengshp/samba.svg)](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://img.shields.io/docker/stars/pengshp/samba.svg)](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://images.microbadger.com/badges/image/pengshp/samba.svg)](https://microbadger.com/images/pengshp/samba "pengshp/samba on microbadger.com") |
 
 ## Build Instructions
 
@@ -75,16 +75,16 @@ This is my real usage command:
 ``` sh
 docker run -d -p 445:445 -e TZ=Asia/Shanghai \
     -v /home/pirate/docker/makefile:/share pengshp/samba \
-    -u "1000:1000:pirate:pirate:put-any-password-here" \
-    -s "SmbShare:/share/folder:rw:pirate"
+    -u "1000:1000:pirate:pirate:pw" \
+    -s "SmbShare:/share:rw:pirate"
 ```
 or this if the user that owns the path to be shared match with the user that raise up the container:
 
 ``` sh
 docker run -d -p 445:445 --hostname $HOSTNAME -e TZ=Asia/Shanghai \
-    -v /home/pirate/docker/makefile:/share pengshp/samba \
-    -u "$(id -u):$(id -g):$(id -un):$(id -gn):put-any-password-here" \
-    -s "SmbShare:/share/folder:rw:$(id -un)"
+    -v /media:/share pengshp/samba \
+    -u "$(id -u):$(id -g):$(id -un):$(id -gn):pw" \
+    -s "SmbShare:/share:rw:$(id -un)"
 ```
 
 On Windows point your filebrowser to `\\host-ip\` to preview site.
