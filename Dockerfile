@@ -27,7 +27,7 @@ EXPOSE 137/udp 138/udp 139/tcp 445/tcp
 VOLUME [ "/share" ]
 WORKDIR /share
 
-HEALTHCHECK --interval=60s --timeout=15s CMD smbclient -L \\localhost -U % -m SMB4
+HEALTHCHECK --interval=60s --timeout=15s CMD smbclient -L \\localhost -U % -m SMB3
 
 CMD ["-h"]
 ENTRYPOINT ["/entrypoint.sh"]
