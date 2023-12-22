@@ -1,14 +1,16 @@
-version: '3.8'
+version: '3.9'
 
 services:
   samba:
-    image: pengshp/samba
+    image: pengshp/samba:latest
     container_name: samba4
     command: '-u "1000:1000:share:share:pw" -s "SmbShare:/share:rw:share"'
     # command: '-u "uid:guid:username:groupname:password" -s "SmbShare:/share:rw:username"'
     environment:
-      TZ: 'Asia/Shanghai'
+      - PUID=1000
+      - PGID=1000
+      - TZ='Asia/Shanghai'
     network_mode: host
     volumes:
-    - ${pwd}/data/:/share
-    restart: on-failure
+    - ./data/:/share
+    restart: unless-stopped

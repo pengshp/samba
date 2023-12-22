@@ -1,6 +1,6 @@
 # Samba
 
-A [Docker](http://docker.com) file to build images for many platforms (linux/amd64, linux/arm64, linux/ppc64le, linux/s390x, linux/386, linux/arm/v7, linux/arm/v6) with a installation of [Samba](https://www.samba.org/) that is the standard Windows interoperability suite of programs for Linux and Unix. This is my own Multi-architecture docker recipe.
+A [Docker](http://docker.com) file to build images for many platforms (linux/amd64, linux/arm64, linux/arm/v7) with a installation of [Samba](https://www.samba.org/) that is the standard Windows interoperability suite of programs for Linux and Unix. This is my own Multi-architecture docker recipe.
 
 > Be aware! You should read carefully the usage documentation of every tool!
 
@@ -14,8 +14,8 @@ A [Docker](http://docker.com) file to build images for many platforms (linux/amd
 - [GitHub](https://github.com/pengshp/samba)
 - [Deft.Work my personal blog](http://deft.work/Samba)
 
-| Docker Hub | Docker Pulls | Docker Stars | Size/Layers |
-| --- | --- | --- | --- |
+| Docker Hub                                                                    | Docker Pulls                                                                                                                       | Docker Stars                                                                                                                       | Size/Layers                                                                                                                                           |
+| ----------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [samba](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://img.shields.io/docker/pulls/pengshp/samba.svg)](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://img.shields.io/docker/stars/pengshp/samba.svg)](https://hub.docker.com/r/pengshp/samba "pengshp/samba on Docker Hub") | [![](https://images.microbadger.com/badges/image/pengshp/samba.svg)](https://microbadger.com/images/pengshp/samba "pengshp/samba on microbadger.com") |
 
 ## Build Instructions
@@ -49,9 +49,9 @@ Container will be configured as samba sharing server and it just needs:
 
 -s name:path:rw:user1[,user2[,userN]]
 
-- add share, that is visible as 'name', exposing contents of 'path' directory for read+write (rw) or read-only (ro) access for specified logins user1, user2, .., userN 
+- add share, that is visible as 'name', exposing contents of 'path' directory for read+write (rw) or read-only (ro) access for specified logins user1, user2, .., userN
 
-### Serve 
+### Serve
 
 Start a samba fileshare.
 
@@ -64,11 +64,11 @@ docker run -d -p 445:445 \
   -u "1000:1000:alice:alice:put-any-password-here" \ # At least the first user must match (password can be different) with a real user from your host filesystem
   -u "1001:1001:bob:bob:secret" \
   -u "1002:1002:guest:guest:guest" \
-  -s "Backup directory:/share/backups:rw:alice,bob" \ 
+  -s "Backup directory:/share/backups:rw:alice,bob" \
   -s "Alice (private):/share/data/alice:rw:alice" \
   -s "Bob (private):/share/data/bob:rw:bob" \
   -s "Documents (readonly):/share/data/documents:ro:guest,alice,bob"
-``` 
+```
 
 This is my real usage command:
 
